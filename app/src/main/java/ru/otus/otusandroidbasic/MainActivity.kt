@@ -1,5 +1,6 @@
 package ru.otus.otusandroidbasic
 
+import android.content.Intent
 import android.graphics.Color.*
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -29,6 +30,9 @@ class MainActivity : AppCompatActivity() {
             textView1.setTextColor(BLUE)
             textView2.setTextColor(BLACK)
             textView3.setTextColor(BLACK)
+            val intent=Intent(this, SecondActivity::class.java)
+            intent.putExtra(SecondActivity.EXTRA_TEXT ,"dvgfgdfgdfgfdgdfgf")
+            startActivity(intent)
         }
         button2.setOnClickListener {
             textView2.setTextColor(BLUE)
@@ -42,6 +46,7 @@ class MainActivity : AppCompatActivity() {
         }
        savedInstanceState?.getInt(EXTRA1)?.let{
            textView1.setTextColor(it)
+
         }
         savedInstanceState?.getInt(EXTRA2)?.let{
             textView2.setTextColor(it)
