@@ -10,7 +10,8 @@
         android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Рок-н-роdfgdfgdsfgdgdfgdfgdfgdfgdfgdfgsdfgsdfgsdfgsdfgsdfgsdgdsfgdsfgdfgdfggdfgdfgsdfgdfgdfsльщик"
-        android:textColor="@color/black"
+        android:text="Рок-н-роdfgdfgdsfgd
+        gdfgdfgdfgdfgdfgdfgsdfgsdfgsdfgsdfgsdfg
+        sdgdsfgdsfgdfgdfggdfgdfgsdfgdfgdfsльщик"
        />
 </LinearLayout>

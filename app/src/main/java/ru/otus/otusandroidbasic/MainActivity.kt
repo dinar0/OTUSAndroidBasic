@@ -2,6 +2,7 @@ package ru.otus.otusandroidbasic
 
 import android.content.Intent
 import android.graphics.Color.*
+import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.PersistableBundle
@@ -32,6 +33,7 @@ class MainActivity : AppCompatActivity() {
             textView3.setTextColor(BLACK)
             val intent=Intent(this, SecondActivity::class.java)
             intent.putExtra(SecondActivity.EXTRA_TEXT ,"dvgfgdfgdfgfdgdfgf")
+           // val intent=Intent(Intent.ACTION_VIEW, Uri.parse("http://otus.ru"))
             startActivity(intent)
         }
         button2.setOnClickListener {
