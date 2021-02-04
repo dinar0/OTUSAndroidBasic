@@ -1,67 +1,87 @@
 package ru.otus.otusandroidbasic
 
 import android.content.Intent
-import android.graphics.Color.*
-import android.net.Uri
-import androidx.appcompat.app.AppCompatActivity
+import android.graphics.Color.BLACK
+import android.graphics.Color.BLUE
 import android.os.Bundle
-import android.os.PersistableBundle
 import android.view.View
 import android.widget.TextView
-import ru.otus.otusandroidbasic.R.layout.activity_main
+import androidx.appcompat.app.AppCompatActivity
+import ru.otus.otusandroidbasic.SecondActivity.Companion.EXTRA_Data
 
 class MainActivity : AppCompatActivity() {
-    companion object{
-        const val EXTRA1="EXTRA_COLOR"
-        const val EXTRA2="EXTRA_COLOR2"
-        const val EXTRA3="EXTRA_COLOR3"
+    companion object {
+        const val IDFILM = "selected_film"
+
     }
+
     private val textView1 by lazy { findViewById<TextView>(R.id.textView) }
     private val textView2 by lazy { findViewById<TextView>(R.id.textView2) }
     private val textView3 by lazy { findViewById<TextView>(R.id.textView3) }
-
-    private val button1 by lazy {findViewById<View>(R.id.button) }
-    private val button2 by lazy { findViewById<View>(R.id.button2)}
+    private val button1 by lazy { findViewById<View>(R.id.button) }
+    private val button2 by lazy { findViewById<View>(R.id.button2) }
     private val button3 by lazy { findViewById<View>(R.id.button3) }
+    private val button4 by lazy { findViewById<View>(R.id.button4) }
+    var IdBtn: Int = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+        if (savedInstanceState != null) {
+            IdBtn = savedInstanceState.getInt(MainActivity.IDFILM)
+        }
+        changeTextColors(IdBtn)
+        onClickListener()
+    }
+
+    private fun onClickListener() {
         button1.setOnClickListener {
-            textView1.setTextColor(BLUE)
-            textView2.setTextColor(BLACK)
-            textView3.setTextColor(BLACK)
-            val intent=Intent(this, SecondActivity::class.java)
-            intent.putExtra(SecondActivity.EXTRA_TEXT ,"dvgfgdfgdfgfdgdfgf")
-           // val intent=Intent(Intent.ACTION_VIEW, Uri.parse("http://otus.ru"))
+            IdBtn = 1
+            changeTextColors(IdBtn)
+            val intent = Intent(this, SecondActivity::class.java)
+            intent.putExtra(EXTRA_Data, SomeData(IdBtn, R.drawable.g, R.string.G_text))
             startActivity(intent)
         }
         button2.setOnClickListener {
-            textView2.setTextColor(BLUE)
-            textView1.setTextColor(BLACK)
-            textView3.setTextColor(BLACK)
+            IdBtn = 2
+            changeTextColors(IdBtn)
+            val intent = Intent(this, SecondActivity::class.java)
+            intent.putExtra(EXTRA_Data, SomeData(IdBtn, R.drawable.l, R.string.L_text))
+            startActivity(intent)
         }
         button3.setOnClickListener {
-            textView3.setTextColor(BLUE)
-            textView2.setTextColor(BLACK)
-            textView1.setTextColor(BLACK)
+            IdBtn = 3
+            changeTextColors(IdBtn)
+            val intent = Intent(this, SecondActivity::class.java)
+            intent.putExtra(EXTRA_Data, SomeData(IdBtn, R.drawable.r, R.string.R_text))
+            startActivity(intent)
         }
-       savedInstanceState?.getInt(EXTRA1)?.let{
-           textView1.setTextColor(it)
 
+        button4.setOnClickListener {
+            val intent = Intent()
+            intent.action = Intent.ACTION_SEND
+            intent.putExtra(Intent.EXTRA_TEXT, R.string.friendInvite)
+            intent.type = "text/plain"
+            startActivity(intent)
         }
-        savedInstanceState?.getInt(EXTRA2)?.let{
-            textView2.setTextColor(it)
-        }
-        savedInstanceState?.getInt(EXTRA3)?.let{
-            textView3.setTextColor(it)
+
+    }
+
+    private fun changeTextColors(idFilm: Int) {
+        textView1.setTextColor(BLACK)
+        textView2.setTextColor(BLACK)
+        textView3.setTextColor(BLACK)
+        when (idFilm) {
+            1 -> textView1.setTextColor(BLUE)
+            2 -> textView2.setTextColor(BLUE)
+            3 -> textView3.setTextColor(BLUE)
         }
     }
 
-   override fun onSaveInstanceState(outState: Bundle, outPersistentState: PersistableBundle) {
-        super.onSaveInstanceState(outState, outPersistentState)
-        outState.putInt(EXTRA1,findViewById<TextView>(R.id.textView).currentTextColor)
-        outState.putInt(EXTRA2,findViewById<TextView>(R.id.textView2).currentTextColor)
-        outState.putInt(EXTRA3,findViewById<TextView>(R.id.textView3).currentTextColor)
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+         outState.putInt(IDFILM, IdBtn)
     }
+
 }
+
