@@ -15,8 +15,8 @@
         <FrameLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
             android:layout_margin="8dp"
+            android:layout_weight="1"
             android:orientation="horizontal">
 
             <ImageView
@@ -31,8 +31,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="right|top"
                 android:text="@string/gentl"
-                android:textColor="@color/black"
-                />
+                android:textColor="@color/black" />
 
 
             <Button
@@ -46,8 +45,8 @@
         <FrameLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
             android:layout_margin="8dp"
+            android:layout_weight="1"
             android:orientation="horizontal">
 
             <ImageView
@@ -78,8 +77,8 @@
         <FrameLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
             android:layout_margin="8dp"
+            android:layout_weight="1"
             android:orientation="horizontal">
 
             <ImageView
@@ -104,6 +103,7 @@
                 android:layout_gravity="right|bottom"
                 android:text="@string/detals" />
         </FrameLayout>
+
         <Button
             android:id="@+id/button4"
             android:layout_width="wrap_content"
