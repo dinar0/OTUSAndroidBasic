@@ -15,7 +15,7 @@ class FilmDetals : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_second)
+        setContentView(R.layout.activity_filmdetals)
         intent.getParcelableExtra<FilmData>(EXTRA_Data)?.let {
             findViewById<TextView>(R.id.title).setText(it.resTit)
             findViewById<TextView>(R.id.text).setText(it.resTxt)
