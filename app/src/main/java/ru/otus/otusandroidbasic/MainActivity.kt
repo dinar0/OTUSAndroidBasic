@@ -14,9 +14,8 @@ import ru.otus.otusandroidbasic.FilmDetails.Companion.EXTRA_Data
 class MainActivity : AppCompatActivity() {
     companion object {
         const val IDFILM = "selected_film"
-        const val LIKE= "like"
-        const val COMMENT= "comment"
-       // const val REQUEST_FOR_COMMENT = 1
+        const val TAG_FILMINFO = "TAG_FILMINFO"
+        const val REQUEST_FOR_COMMENT = 1
     }
 
     private val textView1 by lazy { findViewById<TextView>(R.id.textView) }
@@ -38,14 +37,6 @@ class MainActivity : AppCompatActivity() {
         }
         changeTextColors(IdBtn)
         onClickListener()
-
-    }
-
-    override fun onResume() {
-        super.onResume()
-        intent.getStringExtra(LIKE).let{ like=true}
-        intent.getStringExtra(COMMENT).let{ comment="dsdsddsdscs"}
-        Log.i("Result", "Liked: $like  comment: $comment")
     }
 
     private fun onClickListener() {
@@ -61,7 +52,7 @@ class MainActivity : AppCompatActivity() {
                     R.string.gentl
                 )
             )
-            startActivity(intent)
+            startActivityForResult(intent, REQUEST_FOR_COMMENT)
         }
         button2.setOnClickListener {
             IdBtn = 2
@@ -75,7 +66,7 @@ class MainActivity : AppCompatActivity() {
                     R.string.cart
                 )
             )
-            startActivity(intent)
+            startActivityForResult(intent, REQUEST_FOR_COMMENT)
         }
         button3.setOnClickListener {
             IdBtn = 3
@@ -89,7 +80,7 @@ class MainActivity : AppCompatActivity() {
                     R.string.rock
                 )
             )
-            startActivity(intent)
+            startActivityForResult(intent, REQUEST_FOR_COMMENT)
         }
 
         button4.setOnClickListener {
@@ -118,6 +109,15 @@ class MainActivity : AppCompatActivity() {
         outState.putInt(IDFILM, IdBtn)
     }
 
-
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (requestCode == REQUEST_FOR_COMMENT) {
+            val FilmComment = data?.getParcelableExtra<FilmComment>(FilmDetails.EXTRA_Comment)
+            FilmComment?.let {
+                //  Toast.makeText(this, "like ${it.check}, comment ${it.comment}", Toast.LENGTH_LONG).show()
+                Log.i(TAG_FILMINFO, "like ${it.check}, comment ${it.comment}")
+            }
+        }
+    }
 }
 
