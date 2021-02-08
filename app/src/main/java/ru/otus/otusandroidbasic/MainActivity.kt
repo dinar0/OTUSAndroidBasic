@@ -8,7 +8,7 @@ import android.util.Log
 import android.view.View
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
-import ru.otus.otusandroidbasic.FilmDetals.Companion.EXTRA_Data
+import ru.otus.otusandroidbasic.FilmDetails.Companion.EXTRA_Data
 
 
 class MainActivity : AppCompatActivity() {
@@ -52,7 +52,7 @@ class MainActivity : AppCompatActivity() {
         button1.setOnClickListener {
             IdBtn = 1
             changeTextColors(IdBtn)
-            val intent = Intent(this, FilmDetals::class.java)
+            val intent = Intent(this, FilmDetails::class.java)
             intent.putExtra(
                 EXTRA_Data, FilmData(
                     IdBtn,
@@ -66,7 +66,7 @@ class MainActivity : AppCompatActivity() {
         button2.setOnClickListener {
             IdBtn = 2
             changeTextColors(IdBtn)
-            val intent = Intent(this, FilmDetals::class.java)
+            val intent = Intent(this, FilmDetails::class.java)
             intent.putExtra(
                 EXTRA_Data, FilmData(
                     IdBtn,
@@ -80,7 +80,7 @@ class MainActivity : AppCompatActivity() {
         button3.setOnClickListener {
             IdBtn = 3
             changeTextColors(IdBtn)
-            val intent = Intent(this, FilmDetals::class.java)
+            val intent = Intent(this, FilmDetails::class.java)
             intent.putExtra(
                 EXTRA_Data, FilmData(
                     IdBtn,

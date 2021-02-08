@@ -8,14 +8,14 @@ import androidx.appcompat.app.AppCompatActivity
 import ru.otus.otusandroidbasic.MainActivity.Companion.COMMENT
 import ru.otus.otusandroidbasic.MainActivity.Companion.LIKE
 
-class FilmDetals : AppCompatActivity() {
+class FilmDetails : AppCompatActivity() {
     companion object {
         const val EXTRA_Data = "EXTRA_Data"
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_filmdetals)
+        setContentView(R.layout.activity_filmdetails)
         intent.getParcelableExtra<FilmData>(EXTRA_Data)?.let {
             findViewById<TextView>(R.id.title).setText(it.resTit)
             findViewById<TextView>(R.id.text).setText(it.resTxt)
