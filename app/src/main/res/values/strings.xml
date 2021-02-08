@@ -1,5 +1,6 @@
 <resources>
     <string name="app_name">OTUSAndroidBasic</string>
+    <string name="Ilike">нравиться</string>
     <string name="G_text">Один ушлый американец ещё со студенческих лет приторговывал наркотиками,
         а теперь придумал схему нелегального обогащения с использованием поместий обедневшей
         английской аристократии и очень неплохо на этом разбогател. Другой пронырливый журналист
@@ -22,5 +23,12 @@
         заканчиваются...</string>
     <string name="appName">G_text</string>
     <string name="friendInvite">Приглашение другу</string>
+    <string name="rock">Рок-н-рольщик</string>
+    <string name="detals">Детали</string>
+    <string name="gentl">Джентльмены</string>
+    <string name="cart">Карты, деньги, два ствола</string>
+    <string name="invite">Пригласить друга</string>
+    <string name="textinput">Введите комментарий</string>
+    <string name="save">сохранить</string>
 
 </resources>
