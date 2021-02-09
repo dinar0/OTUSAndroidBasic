@@ -4,15 +4,18 @@ import android.content.Intent
 import android.graphics.Color.BLACK
 import android.graphics.Color.BLUE
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
-import ru.otus.otusandroidbasic.SecondActivity.Companion.EXTRA_Data
+import ru.otus.otusandroidbasic.FilmDetails.Companion.EXTRA_Data
+
 
 class MainActivity : AppCompatActivity() {
     companion object {
         const val IDFILM = "selected_film"
-
+        const val TAG_FILMINFO = "TAG_FILMINFO"
+        const val REQUEST_FOR_COMMENT = 1
     }
 
     private val textView1 by lazy { findViewById<TextView>(R.id.textView) }
@@ -23,12 +26,14 @@ class MainActivity : AppCompatActivity() {
     private val button3 by lazy { findViewById<View>(R.id.button3) }
     private val button4 by lazy { findViewById<View>(R.id.button4) }
     var IdBtn: Int = 0
+    var like = false
+    var comment: String? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         if (savedInstanceState != null) {
-            IdBtn = savedInstanceState.getInt(MainActivity.IDFILM)
+            IdBtn = savedInstanceState.getInt(IDFILM)
         }
         changeTextColors(IdBtn)
         onClickListener()
@@ -38,23 +43,44 @@ class MainActivity : AppCompatActivity() {
         button1.setOnClickListener {
             IdBtn = 1
             changeTextColors(IdBtn)
-            val intent = Intent(this, SecondActivity::class.java)
-            intent.putExtra(EXTRA_Data, SomeData(IdBtn, R.drawable.g, R.string.G_text))
-            startActivity(intent)
+            val intent = Intent(this, FilmDetails::class.java)
+            intent.putExtra(
+                EXTRA_Data, FilmData(
+                    IdBtn,
+                    R.drawable.g,
+                    R.string.G_text,
+                    R.string.gentl
+                )
+            )
+            startActivityForResult(intent, REQUEST_FOR_COMMENT)
         }
         button2.setOnClickListener {
             IdBtn = 2
             changeTextColors(IdBtn)
-            val intent = Intent(this, SecondActivity::class.java)
-            intent.putExtra(EXTRA_Data, SomeData(IdBtn, R.drawable.l, R.string.L_text))
-            startActivity(intent)
+            val intent = Intent(this, FilmDetails::class.java)
+            intent.putExtra(
+                EXTRA_Data, FilmData(
+                    IdBtn,
+                    R.drawable.l,
+                    R.string.L_text,
+                    R.string.cart
+                )
+            )
+            startActivityForResult(intent, REQUEST_FOR_COMMENT)
         }
         button3.setOnClickListener {
             IdBtn = 3
             changeTextColors(IdBtn)
-            val intent = Intent(this, SecondActivity::class.java)
-            intent.putExtra(EXTRA_Data, SomeData(IdBtn, R.drawable.r, R.string.R_text))
-            startActivity(intent)
+            val intent = Intent(this, FilmDetails::class.java)
+            intent.putExtra(
+                EXTRA_Data, FilmData(
+                    IdBtn,
+                    R.drawable.r,
+                    R.string.R_text,
+                    R.string.rock
+                )
+            )
+            startActivityForResult(intent, REQUEST_FOR_COMMENT)
         }
 
         button4.setOnClickListener {
@@ -80,8 +106,18 @@ class MainActivity : AppCompatActivity() {
 
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
-         outState.putInt(IDFILM, IdBtn)
+        outState.putInt(IDFILM, IdBtn)
     }
 
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (requestCode == REQUEST_FOR_COMMENT) {
+            val FilmComment = data?.getParcelableExtra<FilmComment>(FilmDetails.EXTRA_Comment)
+            FilmComment?.let {
+                //  Toast.makeText(this, "like ${it.check}, comment ${it.comment}", Toast.LENGTH_LONG).show()
+                Log.i(TAG_FILMINFO, "like ${it.check}, comment ${it.comment}")
+            }
+        }
+    }
 }
 
