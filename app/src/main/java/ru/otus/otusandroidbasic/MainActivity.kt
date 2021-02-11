@@ -26,8 +26,7 @@ class MainActivity : AppCompatActivity() {
     private val button3 by lazy { findViewById<View>(R.id.button3) }
     private val button4 by lazy { findViewById<View>(R.id.button4) }
     var IdBtn: Int = 0
-    var like = false
-    var comment: String? = null
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -45,8 +44,8 @@ class MainActivity : AppCompatActivity() {
             changeTextColors(IdBtn)
             val intent = Intent(this, FilmDetails::class.java)
             intent.putExtra(
-                EXTRA_Data, FilmData(
-                    IdBtn,
+                EXTRA_Data, FilmItem(
+                    idBtn=IdBtn,
                     R.drawable.g,
                     R.string.G_text,
                     R.string.gentl
@@ -59,8 +58,8 @@ class MainActivity : AppCompatActivity() {
             changeTextColors(IdBtn)
             val intent = Intent(this, FilmDetails::class.java)
             intent.putExtra(
-                EXTRA_Data, FilmData(
-                    IdBtn,
+                EXTRA_Data, FilmItem(
+                    idBtn=IdBtn,
                     R.drawable.l,
                     R.string.L_text,
                     R.string.cart
@@ -73,8 +72,8 @@ class MainActivity : AppCompatActivity() {
             changeTextColors(IdBtn)
             val intent = Intent(this, FilmDetails::class.java)
             intent.putExtra(
-                EXTRA_Data, FilmData(
-                    IdBtn,
+                EXTRA_Data, FilmItem(
+                    idBtn=IdBtn,
                     R.drawable.r,
                     R.string.R_text,
                     R.string.rock
@@ -86,7 +85,7 @@ class MainActivity : AppCompatActivity() {
         button4.setOnClickListener {
             val intent = Intent()
             intent.action = Intent.ACTION_SEND
-            intent.putExtra(Intent.EXTRA_TEXT, R.string.friendInvite)
+            intent.putExtra(Intent.EXTRA_TEXT, R.string.invite)
             intent.type = "text/plain"
             startActivity(intent)
         }
@@ -112,10 +111,10 @@ class MainActivity : AppCompatActivity() {
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if (requestCode == REQUEST_FOR_COMMENT) {
-            val FilmComment = data?.getParcelableExtra<FilmComment>(FilmDetails.EXTRA_Comment)
+            val FilmComment = data?.getParcelableExtra<FilmItem>(FilmDetails.EXTRA_Comment)
             FilmComment?.let {
                 //  Toast.makeText(this, "like ${it.check}, comment ${it.comment}", Toast.LENGTH_LONG).show()
-                Log.i(TAG_FILMINFO, "like ${it.check}, comment ${it.comment}")
+                Log.i(TAG_FILMINFO, "like ${it.isCheck}, comment ${it.comment}")
             }
         }
     }
