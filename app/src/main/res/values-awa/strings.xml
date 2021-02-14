@@ -14,4 +14,10 @@
     <string name="film_list">Film list</string>
     <string name="revolver">Revolver</string>
     <string name="Revolver_text">Seven years ago, Jake got into trouble. The city was obsessed with illegal gambling organized by the crime boss Mac. One day on the eve of a big game, Mac lost his boyfriend, and Jake Green was offered to replace. Under pressure, Green agreed and won at the card table. Since this all started.</string>
+    <string name="snatch">Snatch</string>
+    <string name="snatch_text">Four-fingered Frankie was supposed to ship a stolen diamond from England to the United States to his boss Evie, but, having made a bet on an underground boxing match, he gets into a whirlpool of very undesirable events. A complex intrigue unfolds around him and his cargo with the participation of many colorful characters of the London bottom - a Russian gangster, three hapless robbers, a cunning boxer and a sullen thug of a formidable mafioso. Everyone strives to win a big jackpot alone.</string>
+    <string name="exit_text">Enter to exit</string>
+    <string name="exit_title">Exit</string>
+    <string name="cancel">Cancel</string>
+    <string name="ok">Ok</string>
 </resources>

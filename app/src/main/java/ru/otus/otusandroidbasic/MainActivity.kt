@@ -1,12 +1,14 @@
 package ru.otus.otusandroidbasic
 
 import android.content.Intent
+import android.graphics.Color
 import android.graphics.Color.BLACK
 import android.graphics.Color.BLUE
 import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.widget.TextView
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -24,7 +26,8 @@ class MainActivity : AppCompatActivity() {
         FilmItem( R.drawable.g,R.string.G_text,R.string.gentl),
         FilmItem( R.drawable.l,R.string.L_text,R.string.cart),
         FilmItem( R.drawable.r,R.string.R_text,R.string.rock),
-        FilmItem( R.drawable.Revolver,R.string.Revolver_text,R.string.revolver)
+        FilmItem( R.drawable.revolver,R.string.Revolver_text,R.string.revolver),
+        FilmItem( R.drawable.snatch,R.string.snatch_text,R.string.snatch)
     )
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -42,6 +45,18 @@ class MainActivity : AppCompatActivity() {
         val layoutManager=LinearLayoutManager(this,LinearLayoutManager.VERTICAL,false )
         recyclerView.layoutManager=layoutManager
         recyclerView.adapter=FilmAdapter(items)
+        recyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                if (layoutManager.findLastVisibleItemPosition() == items.size) {
+                    // load data from server
+                    repeat(4) {
+                        items.add(FilmItem( R.drawable.g,R.string.G_text,R.string.gentl))
+                    }
+
+                    recyclerView.adapter?.notifyItemRangeInserted(items.size - 4, 4)
+                }
+            }
+        })
     }
 
   /*  private fun onClickListener() {
@@ -118,5 +133,16 @@ class MainActivity : AppCompatActivity() {
             }
         }
     }*/
+
+    override fun onBackPressed() {
+        val dialogBuilder: AlertDialog.Builder = AlertDialog.Builder(this)
+        dialogBuilder
+            .setMessage(getString(R.string.exit_text))
+            .setIcon(R.drawable.ic_baseline_check_circle_outline_24)
+            .setTitle(R.string.exit_title)
+            .setNeutralButton(R.string.cancel) { dialog, _ -> dialog.dismiss() }
+            .setPositiveButton(R.string.ok) { _, _ -> finish() }
+        dialogBuilder.create().show()
+    }
 }
 
