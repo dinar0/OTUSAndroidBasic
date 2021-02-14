@@ -8,7 +8,9 @@ import android.util.Log
 import android.view.View
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
-import ru.otus.otusandroidbasic.FilmDetails.Companion.EXTRA_Data
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+//import ru.otus.otusandroidbasic.FilmDetails.Companion.EXTRA_Data
 
 
 class MainActivity : AppCompatActivity() {
@@ -17,28 +19,32 @@ class MainActivity : AppCompatActivity() {
         const val TAG_FILMINFO = "TAG_FILMINFO"
         const val REQUEST_FOR_COMMENT = 1
     }
-
-    private val textView1 by lazy { findViewById<TextView>(R.id.textView) }
-    private val textView2 by lazy { findViewById<TextView>(R.id.textView2) }
-    private val textView3 by lazy { findViewById<TextView>(R.id.textView3) }
-    private val button1 by lazy { findViewById<View>(R.id.button) }
-    private val button2 by lazy { findViewById<View>(R.id.button2) }
-    private val button3 by lazy { findViewById<View>(R.id.button3) }
-    private val button4 by lazy { findViewById<View>(R.id.button4) }
-    var IdBtn: Int = 0
-
+    private val recyclerView by lazy { findViewById<RecyclerView>(R.id.recyclerView) }
+    private val items= mutableListOf(
+        FilmItem( R.drawable.g,R.string.G_text,R.string.gentl),
+        FilmItem( R.drawable.l,R.string.L_text,R.string.cart),
+        FilmItem( R.drawable.r,R.string.R_text,R.string.rock),
+        FilmItem( R.drawable.Revolver,R.string.Revolver_text,R.string.revolver)
+    )
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        if (savedInstanceState != null) {
+       /* if (savedInstanceState != null) {
             IdBtn = savedInstanceState.getInt(IDFILM)
-        }
-        changeTextColors(IdBtn)
-        onClickListener()
+        }*/
+        initRecyclerView()
+      /*  changeTextColors(IdBtn)
+        onClickListener()*/
     }
 
-    private fun onClickListener() {
+    private fun initRecyclerView() {
+        val layoutManager=LinearLayoutManager(this,LinearLayoutManager.VERTICAL,false )
+        recyclerView.layoutManager=layoutManager
+        recyclerView.adapter=FilmAdapter(items)
+    }
+
+  /*  private fun onClickListener() {
         button1.setOnClickListener {
             IdBtn = 1
             changeTextColors(IdBtn)
@@ -46,9 +52,7 @@ class MainActivity : AppCompatActivity() {
             intent.putExtra(
                 EXTRA_Data, FilmItem(
                     idBtn=IdBtn,
-                    R.drawable.g,
-                    R.string.G_text,
-                    R.string.gentl
+
                 )
             )
             startActivityForResult(intent, REQUEST_FOR_COMMENT)
@@ -60,9 +64,7 @@ class MainActivity : AppCompatActivity() {
             intent.putExtra(
                 EXTRA_Data, FilmItem(
                     idBtn=IdBtn,
-                    R.drawable.l,
-                    R.string.L_text,
-                    R.string.cart
+
                 )
             )
             startActivityForResult(intent, REQUEST_FOR_COMMENT)
@@ -74,9 +76,7 @@ class MainActivity : AppCompatActivity() {
             intent.putExtra(
                 EXTRA_Data, FilmItem(
                     idBtn=IdBtn,
-                    R.drawable.r,
-                    R.string.R_text,
-                    R.string.rock
+
                 )
             )
             startActivityForResult(intent, REQUEST_FOR_COMMENT)
@@ -117,6 +117,6 @@ class MainActivity : AppCompatActivity() {
                 Log.i(TAG_FILMINFO, "like ${it.isCheck}, comment ${it.comment}")
             }
         }
-    }
+    }*/
 }
 
