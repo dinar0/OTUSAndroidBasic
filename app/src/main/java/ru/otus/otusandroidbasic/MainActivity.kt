@@ -140,10 +140,9 @@ class MainActivity : AppCompatActivity() {
      val dialog: AlertDialog.Builder = AlertDialog.Builder(this)
         dialog .setMessage(getString(R.string.exit_text))
         dialog .setTitle(R.string.exit_title)
-        dialog .setNeutralButton(R.string.cancel) { dialog, _ -> dialog.dismiss() }
-        dialog .setPositiveButton(R.string.ok) { _, _ -> finish() }
+        dialog .setNeutralButton(R.string.cancel,{ dialog, which -> dialog.dismiss() })
+        dialog .setPositiveButton(R.string.ok,{ dialog, _ -> finish() })
         dialog.create().show()
     }
-
 }
 
