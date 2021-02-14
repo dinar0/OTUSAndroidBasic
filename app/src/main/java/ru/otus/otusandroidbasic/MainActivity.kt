@@ -1,5 +1,6 @@
 package ru.otus.otusandroidbasic
 
+import android.content.DialogInterface
 import android.content.Intent
 import android.graphics.Color
 import android.graphics.Color.BLACK
@@ -15,6 +16,7 @@ import androidx.recyclerview.widget.RecyclerView
 //import ru.otus.otusandroidbasic.FilmDetails.Companion.EXTRA_Data
 
 
+@Suppress("NAME_SHADOWING")
 class MainActivity : AppCompatActivity() {
     companion object {
         const val IDFILM = "selected_film"
@@ -135,14 +137,13 @@ class MainActivity : AppCompatActivity() {
     }*/
 
     override fun onBackPressed() {
-        val dialogBuilder: AlertDialog.Builder = AlertDialog.Builder(this)
-        dialogBuilder
-            .setMessage(getString(R.string.exit_text))
-            .setIcon(R.drawable.ic_baseline_check_circle_outline_24)
-            .setTitle(R.string.exit_title)
-            .setNeutralButton(R.string.cancel) { dialog, _ -> dialog.dismiss() }
-            .setPositiveButton(R.string.ok) { _, _ -> finish() }
-        dialogBuilder.create().show()
+     val dialog: AlertDialog.Builder = AlertDialog.Builder(this)
+        dialog .setMessage(getString(R.string.exit_text))
+        dialog .setTitle(R.string.exit_title)
+        dialog .setNeutralButton(R.string.cancel) { dialog, _ -> dialog.dismiss() }
+        dialog .setPositiveButton(R.string.ok) { _, _ -> finish() }
+        dialog.create().show()
     }
+
 }
 
