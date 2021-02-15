@@ -6,7 +6,7 @@ import android.view.View
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 
-/*
+
 class FilmDetails : AppCompatActivity() {
     companion object {
         const val EXTRA_Data = "EXTRA_Data"
@@ -23,14 +23,14 @@ class FilmDetails : AppCompatActivity() {
         setContentView(R.layout.activity_filmdetails)
         intent.getParcelableExtra<FilmItem>(EXTRA_Data)?.let {
 
-            resTit=it.resTit
-            resTxt=it.resTxt
-            resImg=it.resImg
+            resTit = it.resTit
+            resTxt = it.resTxt
+            resImg = it.resImg
             findViewById<TextView>(R.id.title).setText(it.resTit)
             findViewById<TextView>(R.id.text).setText(it.resTxt)
             findViewById<ImageView>(R.id.imageView).setImageResource(it.resImg)
         }
-     /*  val button = findViewById<Button>(R.id.button)
+          val button = findViewById<Button>(R.id.button)
         button.setOnClickListener {
             setResult(
                 RESULT_OK,
@@ -45,6 +45,6 @@ class FilmDetails : AppCompatActivity() {
                 },
             )
             finish()
-        }*/
+        }
     }
-}*/
+}
