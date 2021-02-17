@@ -37,5 +37,8 @@
     <string name="exit_title">Выход</string>
     <string name="cancel">Отмена</string>
     <string name="ok">Ок</string>
+    <string name="likedFilm">Избранное</string>
+    <string name="favorite_title">Список избранных фильмов</string>
+    <string name="favorites_empty">Список избранных фильмов пуст</string>
 
 </resources>

@@ -20,4 +20,8 @@
     <string name="exit_title">Exit</string>
     <string name="cancel">Cancel</string>
     <string name="ok">Ok</string>
+
+    <string name="likedFilm">favorite films</string>
+    <string name="favorite_title">Favorites List</string>
+    <string name="favorites_empty">Favorites list is empty</string>
 </resources>

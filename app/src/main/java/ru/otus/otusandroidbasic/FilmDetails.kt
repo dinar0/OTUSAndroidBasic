@@ -38,7 +38,7 @@ class FilmDetails : AppCompatActivity() {
                     putExtra(
                         EXTRA_Comment,
                         FilmItem( resImg,resTxt,resTit,
-                            isCheck=(findViewById<View>(R.id.likeCheckBox) as CheckBox).isChecked,
+                           // isCheck=(findViewById<View>(R.id.likeCheckBox) as CheckBox).isChecked,
                             comment=findViewById<EditText>(R.id.comment).text.toString(),
                         ),
                     )

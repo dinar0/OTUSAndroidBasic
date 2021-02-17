@@ -1,39 +1,37 @@
 package ru.otus.otusandroidbasic
 
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 
-class FilmAdapter(private val items: List<FilmItem>, private val clickListener: FilmsClickListener)
+class FilmAdapter(private val items: List<FilmItem>, private val clickListener: FilmAdapter.FilmsClickListener)
     : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     companion object {
         const val VIEW_TYPE_FILMS = 0
-        const val VIEW_TYPE_HEADER = 1
+       // const val VIEW_TYPE_HEADER = 1
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
 
         // xml -> View = inflate
         val layoutInflater = LayoutInflater.from(parent.context)
-        val view = layoutInflater.inflate(R.layout.item_film, parent, false)
-        return if (viewType == VIEW_TYPE_FILMS) {
-            val view = layoutInflater.inflate(R.layout.item_film, parent, false)
-            FilmsItemViewHolder(view)
-        } else {
-            val view = layoutInflater.inflate(R.layout.item_film_header, parent, false)
-            FilmHeaderViewHolder(view)
-        }
+        return FilmsItemViewHolder(layoutInflater.inflate(R.layout.item_film, parent, false))
+
     }
 
-    override fun getItemViewType(position: Int) =
+   /* override fun getItemViewType(position: Int) =
         if (position == 0) VIEW_TYPE_HEADER else VIEW_TYPE_FILMS
-
-    override fun getItemCount() = items.size + 1 // +1 = header
+*/
+    override fun getItemCount() = items.size  // +1 = header
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
             if (holder is FilmsItemViewHolder) {
-                val item = items[position - 1]
+                val item = items[position]
+                holder.imageViewLike.setImageResource(
+                                       when (item.isCheck) {
+                                           true -> R.drawable.ic_baseline_favorite_24
+                                           else -> R.drawable.ic_baseline_favorite_border_24
+                                       })
                 holder.bind(item)
 
                 holder.detailBtn.setOnClickListener {
@@ -41,7 +39,8 @@ class FilmAdapter(private val items: List<FilmItem>, private val clickListener: 
                 }
 
                 holder.imageViewLike.setOnClickListener {
-                    clickListener.onFavoriteClick(item)
+
+                    clickListener.onFavoriteClick(item,position)
                 }
 
             }
@@ -49,7 +48,6 @@ class FilmAdapter(private val items: List<FilmItem>, private val clickListener: 
 
             interface FilmsClickListener {
                 fun onDetalsClick(filmItem: FilmItem)
-                fun onFavoriteClick(filmItem: FilmItem)
-
+                fun onFavoriteClick(filmItem: FilmItem, position: Int)
             }
  }

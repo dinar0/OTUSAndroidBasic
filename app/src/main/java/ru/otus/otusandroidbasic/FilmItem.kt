@@ -9,7 +9,7 @@ class FilmItem(
     val resImg: Int,
     val resTxt: Int,
     val resTit: Int,
-    val isCheck: Boolean= false,
+    var isCheck: Boolean= false,
     val comment: String?= null
 ): Parcelable
 
