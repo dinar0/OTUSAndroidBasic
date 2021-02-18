@@ -1,11 +1,13 @@
 package ru.otus.otusandroidbasic
 
 import android.content.Intent
+import android.content.res.Configuration
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import ru.otus.otusandroidbasic.FavoriteFilm.Companion.FAVORITE_FILM
@@ -62,7 +64,10 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun initRecyclerView() {
-        val layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
+         var layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
+        if (resources.configuration.orientation == Configuration.ORIENTATION_LANDSCAPE)
+        layoutManager=GridLayoutManager(this,2 )
+
         recyclerView.layoutManager = layoutManager
         recyclerView.adapter = FilmAdapter(items, object : FilmAdapter.FilmsClickListener {
 
@@ -117,6 +122,10 @@ class MainActivity : AppCompatActivity() {
           super.onSaveInstanceState(outState)
           outState.putExtra(EXTRA_Data, items)
       }*/
+    override fun onResume() {
+        super.onResume()
+        initRecyclerView()
+    }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)

@@ -35,18 +35,16 @@ class FavoriteFilm: AppCompatActivity() {
         recyclerViewLike.layoutManager = layoutManager
         recyclerViewLike.adapter = FavoriteFilmAdapter(LikedFilmsItem, object : FavoriteFilmAdapter.FavoriteFilmsClickListener {
 
-            override fun onFavoriteClick(filmItem: FilmItem,position :Int) {
+            override fun onFavoriteClick(filmItem: FilmItem,aposition :Int) {
                 if (filmItem.isCheck) {
-                    LikedFilmsItem.remove(filmItem)
+                    LikedFilmsItem.removeAt(aposition)
                     if(LikedFilmsItem.isEmpty()) favoritesEmpty.isVisible=true
                     else favoritesEmpty.isVisible=false
                     filmItem.isCheck = false
                 }
-                else {
-                    filmItem.isCheck = true
-                    LikedFilmsItem.add(filmItem)
-                }
-                recyclerViewLike.adapter?.notifyItemRemoved(position)
+
+
+                recyclerViewLike.adapter?.notifyItemRemoved(aposition)
             }
         })
     }

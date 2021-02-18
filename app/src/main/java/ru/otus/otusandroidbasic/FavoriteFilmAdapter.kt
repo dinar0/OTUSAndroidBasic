@@ -34,7 +34,7 @@ class FavoriteFilmAdapter (private val items: List<FilmItem>, private val clickL
 
             holder.imageViewLike.setOnClickListener {
 
-                clickListener.onFavoriteClick(item,position)
+                clickListener.onFavoriteClick(item, holder.adapterPosition)
             }
 
         }
