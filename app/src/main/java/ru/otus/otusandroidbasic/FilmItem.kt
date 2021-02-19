@@ -4,13 +4,13 @@ import android.os.Parcelable
 import kotlinx.android.parcel.Parcelize
 
 @Parcelize
-class FilmItem(
+data class FilmItem(
 
     val resImg: Int,
     val resTxt: Int,
     val resTit: Int,
-    var isCheck: Boolean= false,
-    val comment: String?= null
+    var isCheck: Boolean = false,
+    val comment: String? = null
 ): Parcelable
 
 

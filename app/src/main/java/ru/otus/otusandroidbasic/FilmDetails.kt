@@ -2,8 +2,10 @@ package ru.otus.otusandroidbasic
 
 import android.content.Intent
 import android.os.Bundle
-import android.view.View
-import android.widget.*
+import android.widget.Button
+import android.widget.EditText
+import android.widget.ImageView
+import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 
 
@@ -30,16 +32,17 @@ class FilmDetails : AppCompatActivity() {
             findViewById<TextView>(R.id.text).setText(it.resTxt)
             findViewById<ImageView>(R.id.imageView).setImageResource(it.resImg)
         }
-          val button = findViewById<Button>(R.id.button)
+        val button = findViewById<Button>(R.id.button)
         button.setOnClickListener {
             setResult(
                 RESULT_OK,
                 Intent().apply {
                     putExtra(
                         EXTRA_Comment,
-                        FilmItem( resImg,resTxt,resTit,
-                           // isCheck=(findViewById<View>(R.id.likeCheckBox) as CheckBox).isChecked,
-                            comment=findViewById<EditText>(R.id.comment).text.toString(),
+                        FilmItem(
+                            resImg, resTxt, resTit,
+                            // isCheck=(findViewById<View>(R.id.likeCheckBox) as CheckBox).isChecked,
+                            comment = findViewById<EditText>(R.id.comment).text.toString(),
                         ),
                     )
                 },
