@@ -9,22 +9,18 @@ import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 
 
-class FilmDetails : AppCompatActivity() {
+class FilmDetailsActivity : AppCompatActivity() {
     companion object {
         const val EXTRA_Data = "EXTRA_Data"
         const val EXTRA_Comment = "EXTRA_Comment"
-
     }
-
     var resTit: Int = 0
     var resTxt: Int = 0
     var resImg: Int = 0
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_filmdetails)
         intent.getParcelableExtra<FilmItem>(EXTRA_Data)?.let {
-
             resTit = it.resTit
             resTxt = it.resTxt
             resImg = it.resImg
