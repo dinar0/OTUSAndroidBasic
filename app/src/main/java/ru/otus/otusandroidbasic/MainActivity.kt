@@ -58,16 +58,15 @@ class MainActivity : AppCompatActivity() {
         }
     }
     private fun initRecyclerView() {
-        var layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
-        if (resources.configuration.orientation == Configuration.ORIENTATION_LANDSCAPE)
-            layoutManager = GridLayoutManager(this, 2)
+        //var layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
+      //  if (resources.configuration.orientation == Configuration.ORIENTATION_LANDSCAPE)
+       //     layoutManager = GridLayoutManager(this, 2)
         items.forEach { FilmItem ->
             if (LikedFilms.find { it == FilmItem } == null) {
                 FilmItem.isCheck = false
             }
         }
-        // else  items[items.indexOf(FilmItem)].isCheck=false
-        recyclerView.layoutManager = layoutManager
+       // recyclerView.layoutManager = layoutManager
         recyclerView.adapter = FilmAdapter(items, object : FilmAdapter.FilmsClickListener {
             override fun onDetalsClick(filmItem: FilmItem) {
                 val intent = Intent(this@MainActivity, FilmDetailsActivity::class.java)

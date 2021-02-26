@@ -46,12 +46,16 @@ class FavoriteFilmsActivity : AppCompatActivity() {
         outState.putParcelableArrayList(FAVORITE_FILMS, likedFilmsItem)
     }
     override fun onBackPressed() {
+        super.onBackPressed()
+        finish()
+    }
+    override fun finish() {
         setResult(
             RESULT_OK,
             Intent().apply {
                 putParcelableArrayListExtra(FAVORITE_FILMS, likedFilmsItem)
             },
         )
-        finish()
+        super.finish()
     }
 }
