@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="Ilike">Like</string>
+    <string name="G_text">One cunning American was a drug dealer since his student days,         and now he came up with a scheme of illegal enrichment using the estates of the impoverished         English aristocracy and very well on it. Another nosy journalist         comes to Ray, the American\'s right hand, and offers him to buy a screenplay in which         the crimes of his boss are described in detail with the participation of other representatives of the London         the criminal world - a Jewish partner, the Chinese diaspora, black athletes and even         Russian oligarch ..</string>
+    <string name="R_text">The dangerous world of corruption and the life of London\'s criminal scum          where real estate ousted such a leader in the trading market as drugs,          and criminal gangs became the most active entrepreneurs.          But to everyone who wants to do their business there, be it a small fry One-Two or          Russian shadow billionaire Yuri Omovich, you will first have to agree with one          human - Lenny Cole.</string>
+    <string name="L_text">Four young men have saved up £ 25,000 each for one of the         he could play cards with an experienced sharper and a hardened criminal known by the nickname         Harry Axe. The guy ended up losing 500 thousand, he was given a week to pay the debt. Otherwise         case, and he and his \"sponsors\" every day will be chopped off on the finger, and then ...         out of the situation, the guys decided to rob the bandits who decided to rob three \"nerds\"         growing marijuana for the local drug lord. But this adventure of the four is not         end ...</string>
+    <string name="rock">Rock and Roller</string>
+    <string name="detals">Detals</string>
+    <string name="gentl">Gentlemen</string>
+    <string name="cart">Lock, money, two barrels</string>
+    <string name="save">save</string>
+    <string name="textinput">enter comment</string>
+    <string name="invite">invite</string>
+    <string name="film_list">Film list</string>
+    <string name="revolver">Revolver</string>
+    <string name="Revolver_text">Seven years ago, Jake got into trouble. The city was obsessed with illegal gambling organized by the crime boss Mac. One day on the eve of a big game, Mac lost his boyfriend, and Jake Green was offered to replace. Under pressure, Green agreed and won at the card table. Since this all started.</string>
+    <string name="snatch">Snatch</string>
+    <string name="snatch_text">Four-fingered Frankie was supposed to ship a stolen diamond from England to the United States to his boss Evie, but, having made a bet on an underground boxing match, he gets into a whirlpool of very undesirable events. A complex intrigue unfolds around him and his cargo with the participation of many colorful characters of the London bottom - a Russian gangster, three hapless robbers, a cunning boxer and a sullen thug of a formidable mafioso. Everyone strives to win a big jackpot alone.</string>
+    <string name="exit_text">Enter to exit</string>
+    <string name="exit_title">Exit</string>
+    <string name="cancel">Cancel</string>
+    <string name="ok">Ok</string>
+
+    <string name="likedFilm">favorite films</string>
+    <string name="favorite_title">Favorites List</string>
+    <string name="favorites_empty">Favorites list is empty</string>
+</resources>

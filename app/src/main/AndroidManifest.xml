@@ -18,7 +18,7 @@
         </activity>
 
         <activity android:name=".FilmDetails"/>
-
+        <activity android:name=".FavoriteFilm"/>
     </application>
 
 </manifest>
