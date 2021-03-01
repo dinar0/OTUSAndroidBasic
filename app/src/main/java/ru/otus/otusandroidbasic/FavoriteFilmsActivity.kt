@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
+import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 
@@ -40,6 +41,8 @@ class FavoriteFilmsActivity : AppCompatActivity() {
                     recyclerViewLike.adapter?.notifyItemRemoved(aposition)
                 }
             })
+        val ItemDecoration=DividerItemDecoration(this, DividerItemDecoration.VERTICAL)
+        recyclerViewLike.addItemDecoration(ItemDecoration)
     }
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
