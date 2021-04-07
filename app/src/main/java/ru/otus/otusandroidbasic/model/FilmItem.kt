@@ -1,4 +1,4 @@
-package ru.otus.otusandroidbasic
+package ru.otus.otusandroidbasic.model
 
 import android.os.Parcelable
 import kotlinx.android.parcel.Parcelize
@@ -10,7 +10,7 @@ data class FilmItem(
     val resTit: Int,
     var isCheck: Boolean = false,
     val comment: String? = null
-): Parcelable
+) : Parcelable
 
 
 

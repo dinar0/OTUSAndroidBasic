@@ -1,27 +1,22 @@
-package ru.otus.otusandroidbasic
+package ru.otus.otusandroidbasic.adapters
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import ru.otus.otusandroidbasic.R
+import ru.otus.otusandroidbasic.model.FilmItem
+import ru.otus.otusandroidbasic.viewholders.FilmsItemViewHolder
 
-class FilmAdapter(
+class FilmsAdapter(
     private val items: List<FilmItem>,
-    private val clickListener: FilmAdapter.FilmsClickListener
+    private val clickListener: FilmsClickListener
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
-    companion object {
-        const val VIEW_TYPE_FILMS = 0
-        // const val VIEW_TYPE_HEADER = 1
-    }
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
-
-        // xml -> View = inflate
         val layoutInflater = LayoutInflater.from(parent.context)
         return FilmsItemViewHolder(layoutInflater.inflate(R.layout.item_film, parent, false))
     }
-    /* override fun getItemViewType(position: Int) =
-         if (position == 0) VIEW_TYPE_HEADER else VIEW_TYPE_FILMS
- */
-    override fun getItemCount() = items.size  // +1 = header
+
+    override fun getItemCount() = items.size
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         if (holder is FilmsItemViewHolder) {
             val item = items[position]
@@ -32,7 +27,7 @@ class FilmAdapter(
                 }
             )
             holder.bind(item)
-            holder.detailBtn.setOnClickListener {
+            holder.imageView.setOnClickListener {
                 clickListener.onDetalsClick(item)
             }
             holder.imageViewLike.setOnClickListener {
@@ -40,6 +35,7 @@ class FilmAdapter(
             }
         }
     }
+
     interface FilmsClickListener {
         fun onDetalsClick(filmItem: FilmItem)
         fun onFavoriteClick(filmItem: FilmItem, position: Int)

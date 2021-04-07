@@ -4,11 +4,13 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_margin="4dp"
+    android:background="@color/backgroundColor"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <ImageView
         android:id="@+id/imageView"
         android:layout_width="180dp"
         android:layout_height="180dp"
+        android:layout_margin="4dp"
         android:background="@color/cardview_shadow_end_color"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -26,17 +28,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         tools:text="Title"
-        android:layout_marginStart="4dp"
-        app:layout_constraintBottom_toTopOf="@id/button"
-        app:layout_constraintStart_toEndOf="@+id/imageView"
-        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginStart="5dp"
+        app:layout_constraintStart_toStartOf="@+id/imageView"
+        app:layout_constraintTop_toBottomOf="@+id/imageView"
         android:textColor="@color/black" />
-    <Button
-        android:id="@+id/button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/detals"
-        app:layout_constraintStart_toStartOf="@+id/textView"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView"/>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

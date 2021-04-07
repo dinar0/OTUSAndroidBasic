@@ -1,50 +1,66 @@
 package ru.otus.otusandroidbasic
 
 import android.content.Intent
-import android.content.res.Configuration
 import android.os.Bundle
 import android.view.View
-import android.widget.Toast
+import android.widget.FrameLayout
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
-import androidx.recyclerview.widget.DividerItemDecoration
-import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
-import ru.otus.otusandroidbasic.FavoriteFilmsActivity.Companion.FAVORITE_FILMS
-import ru.otus.otusandroidbasic.FilmDetailsActivity.Companion.EXTRA_Data
+import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.google.android.material.snackbar.Snackbar
+import ru.otus.otusandroidbasic.dataFilmsList.DataSource.likedFilms
+import ru.otus.otusandroidbasic.fragments.FavoriteFilmsFragment
+import ru.otus.otusandroidbasic.fragments.FilmDetailsFragment
+import ru.otus.otusandroidbasic.fragments.FilmsListFragment
+import ru.otus.otusandroidbasic.model.FilmItem
 
-//import ru.otus.otusandroidbasic.FilmDetails.Companion.EXTRA_Data
 
+class MainActivity : AppCompatActivity(),
+    FilmsListFragment.FilmsClickedListener,
+    FavoriteFilmsFragment.FavoriteFilmsClickedListener {
+    private val fragmentContainer by lazy { findViewById<FrameLayout>(R.id.fragmentContainer) }
 
-class MainActivity : AppCompatActivity() {
-    companion object {
-        const val FILM = "FILM"
-        const val REQUEST_FOR_LIKE = 2
-        const val REQUEST_FOR_COMMENT = 1
-    }
-    private val recyclerView by lazy { findViewById<RecyclerView>(R.id.recyclerView) }
-    private val inviteBtn by lazy { findViewById<View>(R.id.invite) }
-    private val Ilike by lazy { findViewById<View>(R.id.Ilike) }
-    private var items = arrayListOf(
-        FilmItem(R.drawable.g, R.string.G_text, R.string.gentl),
-        FilmItem(R.drawable.l, R.string.L_text, R.string.cart),
-        FilmItem(R.drawable.r, R.string.R_text, R.string.rock),
-        FilmItem(R.drawable.revolver, R.string.Revolver_text, R.string.revolver),
-        FilmItem(R.drawable.snatch, R.string.snatch_text, R.string.snatch)
-    )
-    private var LikedFilms = arrayListOf<FilmItem>()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        intent.getParcelableArrayListExtra<FilmItem>(FAVORITE_FILMS)?.let {
-            LikedFilms = it
-        }
-
-        initRecyclerView()
+        initBottomNavigation()
         initClickListeners()
+        if (supportFragmentManager.backStackEntryCount == 0) {
+            supportFragmentManager.beginTransaction()
+                .replace(R.id.fragmentContainer, FilmsListFragment())
+                .addToBackStack(null)
+                .commit()
+        }
     }
+
+    private fun initBottomNavigation() {
+        val bottomNavigation: BottomNavigationView = findViewById(R.id.bottom_navigation)
+        bottomNavigation.setOnNavigationItemSelectedListener { item ->
+            supportFragmentManager.popBackStack()
+            when (item.itemId) {
+                R.id.menu_film_list -> {
+                    supportFragmentManager.beginTransaction()
+                        .replace(R.id.fragmentContainer, FilmsListFragment(), FilmsListFragment.TAG)
+                        .addToBackStack("FilmsListFragment")
+                        .commit()
+                }
+                R.id.menu_favorite -> {
+                    supportFragmentManager.beginTransaction()
+                        .replace(
+                            R.id.fragmentContainer,
+                            FavoriteFilmsFragment(),
+                            FavoriteFilmsFragment.FAVORITE_FILMS
+                        )
+                        .addToBackStack("FavoriteFilmsFragment")
+                        .commit()
+                }
+            }
+            true
+        }
+    }
+
     private fun initClickListeners() {
+        val inviteBtn by lazy { findViewById<View>(R.id.invite) }
         inviteBtn.setOnClickListener {
             val intent = Intent()
             intent.action = Intent.ACTION_SEND
@@ -52,91 +68,92 @@ class MainActivity : AppCompatActivity() {
             intent.type = "text/plain"
             startActivity(intent)
         }
-        Ilike.setOnClickListener {
-            val intent = Intent(this, FavoriteFilmsActivity::class.java)
-            intent.putParcelableArrayListExtra(FAVORITE_FILMS, LikedFilms)
-            startActivityForResult(intent, REQUEST_FOR_LIKE)
-        }
     }
-    private fun initRecyclerView() {
-        //var layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
-      //  if (resources.configuration.orientation == Configuration.ORIENTATION_LANDSCAPE)
-       //     layoutManager = GridLayoutManager(this, 2)
-        items.forEach { FilmItem ->
-            if (LikedFilms.find { it == FilmItem } == null) {
-                FilmItem.isCheck = false
-            }
-        }
-       // recyclerView.layoutManager = layoutManager
-        recyclerView.adapter = FilmAdapter(items, object : FilmAdapter.FilmsClickListener {
-            override fun onDetalsClick(filmItem: FilmItem) {
-                val intent = Intent(this@MainActivity, FilmDetailsActivity::class.java)
-                intent.putExtra(EXTRA_Data, filmItem)
-                startActivityForResult(intent, REQUEST_FOR_COMMENT)
-            }
-            override fun onFavoriteClick(filmItem: FilmItem, position: Int) {
-                if (filmItem.isCheck) {
-                    LikedFilms.remove(filmItem)
-                    filmItem.isCheck = false
-                } else {
-                    filmItem.isCheck = true
-                    LikedFilms.add(filmItem)
-                }
-                recyclerView.adapter?.notifyItemChanged(position)
-            }
-        })
-        val ItemDecoration= DividerItemDecoration(this, DividerItemDecoration.VERTICAL)
-        recyclerView.addItemDecoration(ItemDecoration)
-        /* recyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
-             override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
-                 if (layoutManager.findLastVisibleItemPosition() == items.size) {
-                     // load data from server
-                     repeat(4) {
-                         items.add(FilmItem(R.drawable.g, R.string.G_text, R.string.gentl))
-                     }
 
-                     recyclerView.adapter?.notifyItemRangeInserted(items.size - 4, 4)
-                 }
-             }
-         })*/
-    }
-    override fun onRestoreInstanceState(savedInstanceState: Bundle) {
-        super.onRestoreInstanceState(savedInstanceState)
-        items = savedInstanceState.getParcelableArrayList<FilmItem>(FILM) as ArrayList<FilmItem>
-        LikedFilms =
-            savedInstanceState.getParcelableArrayList<FilmItem>(FAVORITE_FILMS) as ArrayList<FilmItem>
-    }
-    override fun onSaveInstanceState(outState: Bundle) {
-        super.onSaveInstanceState(outState)
-        outState.putParcelableArrayList(FILM, items)
-        outState.putParcelableArrayList(FAVORITE_FILMS, LikedFilms)
-    }
-    override fun onResume() {
-        super.onResume()
-        initRecyclerView()
-    }
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
-        if (resultCode == RESULT_OK) {
-            if (requestCode == REQUEST_FOR_COMMENT) {
-                val FilmComment = data?.getParcelableExtra<FilmItem>(FilmDetailsActivity.EXTRA_Comment)
-                FilmComment?.let {
-                    Toast.makeText(this, " comment ${it.comment}", Toast.LENGTH_LONG)
-                        .show()
-                    // Log.i(TAG_FILMINFO, "like ${it.isCheck}, comment ${it.comment}")
-                }
-            }
-            if (requestCode == REQUEST_FOR_LIKE) LikedFilms =
-                data?.getParcelableArrayListExtra<FilmItem>(FAVORITE_FILMS) as ArrayList<FilmItem>
+    override fun onBackPressed() {
+        if (supportFragmentManager.backStackEntryCount > 1) {
+            super.onBackPressed()
+        } else {
+            showExitDialog()
         }
     }
-    override fun onBackPressed() {
+
+    private fun showExitDialog() {
         val dialog: AlertDialog.Builder = AlertDialog.Builder(this)
         dialog.setMessage(getString(R.string.exit_text))
         dialog.setTitle(R.string.exit_title)
         dialog.setNeutralButton(R.string.cancel, { dialog, which -> dialog.dismiss() })
         dialog.setPositiveButton(R.string.ok, { dialog, _ -> finish() })
         dialog.create().show()
+    }
+
+    //inFilmListFragment
+    override fun onDetalsClicked(filmItem: FilmItem) {
+        supportFragmentManager
+            .beginTransaction()
+            .replace(
+                R.id.fragmentContainer,
+                FilmDetailsFragment.newInstance(filmItem),
+                FilmDetailsFragment.TAG
+            )
+            .addToBackStack(null)
+            .commit()
+    }
+
+    //inFilmListFragment
+    override fun onFavoriteClicked(filmItem: FilmItem, position: Int) {
+        if (filmItem.isCheck) {
+            filmItem.isCheck = false
+            likedFilms.remove(filmItem)
+            Snackbar.make(
+                fragmentContainer,
+                "${getString(filmItem.resTit)} delete",
+                Snackbar.LENGTH_SHORT
+            )
+                .setAction(R.string.cancel) {
+                    likedFilms.add(filmItem)
+                    filmItem.isCheck = true
+                    FilmsListFragment.recyclerView.adapter?.notifyItemChanged(position)
+                }.show()
+        } else {
+            filmItem.isCheck = true
+            likedFilms.add(filmItem)
+            Snackbar.make(
+                fragmentContainer,
+                "${getString(filmItem.resTit)} add",
+                Snackbar.LENGTH_SHORT
+            )
+                .setAction(R.string.cancel) {
+                    likedFilms.remove(filmItem)
+                    filmItem.isCheck = false
+                    FilmsListFragment.recyclerView.adapter?.notifyItemChanged(position)
+                }.show()
+        }
+        FilmsListFragment.recyclerView.adapter?.notifyItemChanged(position)
+    }
+
+    // inFavoriteFilmsFragment
+    override fun onFavoriteClick(filmItem: FilmItem, adapterPosition: Int) {
+        if (filmItem.isCheck) {
+            filmItem.isCheck = false
+            likedFilms.remove(filmItem)
+            FavoriteFilmsFragment.recyclerViewLike.adapter?.notifyItemRemoved(adapterPosition)
+            Snackbar.make(
+                fragmentContainer,
+                "${getString(filmItem.resTit)} delete",
+                Snackbar.LENGTH_SHORT
+            )
+                .setAction(R.string.cancel) {
+                    likedFilms.add(filmItem)
+                    filmItem.isCheck = true
+                    FavoriteFilmsFragment.recyclerViewLike.adapter?.notifyItemChanged(
+                        adapterPosition
+                    )
+                }.show()
+        } else {
+            filmItem.isCheck = true
+            likedFilms.add(filmItem)
+        }
     }
 }
 
