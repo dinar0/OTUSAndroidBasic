@@ -5,7 +5,6 @@ import kotlinx.android.parcel.Parcelize
 
 @Parcelize
 data class FilmItem(
-
     val resImg: Int,
     val resTxt: Int,
     val resTit: Int,

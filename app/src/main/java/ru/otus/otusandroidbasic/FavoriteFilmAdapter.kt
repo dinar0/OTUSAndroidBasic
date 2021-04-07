@@ -8,10 +8,7 @@ class FavoriteFilmAdapter(
     private val items: List<FilmItem>,
     private val clickListener: FavoriteFilmsClickListener
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
-
-
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
-
         // xml -> View = inflate
         val layoutInflater = LayoutInflater.from(parent.context)
         return FavoriteFilmItemViewHolder(
@@ -21,11 +18,8 @@ class FavoriteFilmAdapter(
                 false
             )
         )
-
     }
-
-    override fun getItemCount() = items.size  // +1 = header
-
+    override fun getItemCount() = items.size
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         if (holder is FavoriteFilmItemViewHolder) {
             val item = items[position]
@@ -35,21 +29,13 @@ class FavoriteFilmAdapter(
                     else -> R.drawable.ic_baseline_favorite_border_24
                 }
             )
-
             holder.bind(item)
-
-
-
             holder.imageViewLike.setOnClickListener {
-
                 clickListener.onFavoriteClick(item, holder.adapterPosition)
             }
-
         }
     }
-
     interface FavoriteFilmsClickListener {
-
         fun onFavoriteClick(filmItem: FilmItem, position: Int)
     }
 }
