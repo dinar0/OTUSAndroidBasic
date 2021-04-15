@@ -5,9 +5,11 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.google.android.material.snackbar.Snackbar
 import ru.otus.otusandroidbasic.R
 import ru.otus.otusandroidbasic.adapters.FilmsAdapter
 import ru.otus.otusandroidbasic.dataFilmsList.DataSource
@@ -37,17 +39,47 @@ class FilmsListFragment : Fragment() {
 
         recyclerView.adapter = FilmsAdapter(filmsList, object : FilmsAdapter.FilmsClickListener {
             override fun onDetalsClick(filmItem: FilmItem) {
-                (activity as? FilmsClickedListener)?.onDetalsClicked(filmItem)
+                (activity as AppCompatActivity).supportFragmentManager
+                    .beginTransaction()
+                    .replace(
+                        R.id.fragmentContainer,
+                        FilmDetailsFragment.newInstance(filmItem),
+                        FilmDetailsFragment.TAG
+                    )
+                    .addToBackStack(null)
+                    .commit()
             }
 
             override fun onFavoriteClick(filmItem: FilmItem, position: Int) {
-                (activity as? FilmsClickedListener)?.onFavoriteClicked(filmItem, position)
+                if (filmItem.isCheck) {
+                    filmItem.isCheck = false
+                    DataSource.likedFilms.remove(filmItem)
+                    Snackbar.make(
+                        view,
+                        "${getString(filmItem.resTit)} delete",
+                        Snackbar.LENGTH_SHORT
+                    )
+                        .setAction(R.string.cancel) {
+                            DataSource.likedFilms.add(filmItem)
+                            filmItem.isCheck = true
+                            FilmsListFragment.recyclerView.adapter?.notifyItemChanged(position)
+                        }.show()
+                } else {
+                    filmItem.isCheck = true
+                    DataSource.likedFilms.add(filmItem)
+                    Snackbar.make(
+                        view,
+                        "${getString(filmItem.resTit)} add",
+                        Snackbar.LENGTH_SHORT
+                    )
+                        .setAction(R.string.cancel) {
+                            DataSource.likedFilms.remove(filmItem)
+                            filmItem.isCheck = false
+                            recyclerView.adapter?.notifyItemChanged(position)
+                        }.show()
+                }
+                recyclerView.adapter?.notifyItemChanged(position)
             }
         })
-    }
-
-    interface FilmsClickedListener {
-        fun onDetalsClicked(filmItem: FilmItem)
-        fun onFavoriteClicked(filmItem: FilmItem, position: Int)
     }
 }

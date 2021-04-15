@@ -15,9 +15,8 @@ import ru.otus.otusandroidbasic.fragments.FilmsListFragment
 import ru.otus.otusandroidbasic.model.FilmItem
 
 
-class MainActivity : AppCompatActivity(),
-    FilmsListFragment.FilmsClickedListener,
-    FavoriteFilmsFragment.FavoriteFilmsClickedListener {
+class MainActivity : AppCompatActivity()
+    {
     private val fragmentContainer by lazy { findViewById<FrameLayout>(R.id.fragmentContainer) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -86,75 +85,6 @@ class MainActivity : AppCompatActivity(),
         dialog.setNeutralButton(R.string.cancel, { dialog, which -> dialog.dismiss() })
         dialog.setPositiveButton(R.string.ok, { dialog, _ -> finish() })
         dialog.create().show()
-    }
-
-    //inFilmListFragment
-    override fun onDetalsClicked(filmItem: FilmItem) {
-        supportFragmentManager
-            .beginTransaction()
-            .replace(
-                R.id.fragmentContainer,
-                FilmDetailsFragment.newInstance(filmItem),
-                FilmDetailsFragment.TAG
-            )
-            .addToBackStack(null)
-            .commit()
-    }
-
-    //inFilmListFragment
-    override fun onFavoriteClicked(filmItem: FilmItem, position: Int) {
-        if (filmItem.isCheck) {
-            filmItem.isCheck = false
-            likedFilms.remove(filmItem)
-            Snackbar.make(
-                fragmentContainer,
-                "${getString(filmItem.resTit)} delete",
-                Snackbar.LENGTH_SHORT
-            )
-                .setAction(R.string.cancel) {
-                    likedFilms.add(filmItem)
-                    filmItem.isCheck = true
-                    FilmsListFragment.recyclerView.adapter?.notifyItemChanged(position)
-                }.show()
-        } else {
-            filmItem.isCheck = true
-            likedFilms.add(filmItem)
-            Snackbar.make(
-                fragmentContainer,
-                "${getString(filmItem.resTit)} add",
-                Snackbar.LENGTH_SHORT
-            )
-                .setAction(R.string.cancel) {
-                    likedFilms.remove(filmItem)
-                    filmItem.isCheck = false
-                    FilmsListFragment.recyclerView.adapter?.notifyItemChanged(position)
-                }.show()
-        }
-        FilmsListFragment.recyclerView.adapter?.notifyItemChanged(position)
-    }
-
-    // inFavoriteFilmsFragment
-    override fun onFavoriteClick(filmItem: FilmItem, adapterPosition: Int) {
-        if (filmItem.isCheck) {
-            filmItem.isCheck = false
-            likedFilms.remove(filmItem)
-            FavoriteFilmsFragment.recyclerViewLike.adapter?.notifyItemRemoved(adapterPosition)
-            Snackbar.make(
-                fragmentContainer,
-                "${getString(filmItem.resTit)} delete",
-                Snackbar.LENGTH_SHORT
-            )
-                .setAction(R.string.cancel) {
-                    likedFilms.add(filmItem)
-                    filmItem.isCheck = true
-                    FavoriteFilmsFragment.recyclerViewLike.adapter?.notifyItemChanged(
-                        adapterPosition
-                    )
-                }.show()
-        } else {
-            filmItem.isCheck = true
-            likedFilms.add(filmItem)
-        }
     }
 }
 

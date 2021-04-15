@@ -11,6 +11,7 @@ import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.google.android.material.snackbar.Snackbar
 import ru.otus.otusandroidbasic.R
 import ru.otus.otusandroidbasic.adapters.FavoriteFilmAdapter
 import ru.otus.otusandroidbasic.dataFilmsList.DataSource.likedFilms
@@ -45,18 +46,30 @@ class FavoriteFilmsFragment : Fragment() {
             likedFilms?.let {
                 FavoriteFilmAdapter(it, object : FavoriteFilmAdapter.FavoriteFilmsClickListener {
                     override fun onFavoriteClick(filmItem: FilmItem, adapterPosition: Int) {
-                        (activity as? FavoriteFilmsClickedListener)?.onFavoriteClick(
-                            filmItem,
-                            adapterPosition
-                        )
+                        if (filmItem.isCheck) {
+                            filmItem.isCheck = false
+                            likedFilms.remove(filmItem)
+                            FavoriteFilmsFragment.recyclerViewLike.adapter?.notifyItemRemoved(adapterPosition)
+                            Snackbar.make(
+                                view,
+                                "${getString(filmItem.resTit)} delete",
+                                Snackbar.LENGTH_SHORT
+                            )
+                                .setAction(R.string.cancel) {
+                                    likedFilms.add(filmItem)
+                                    filmItem.isCheck = true
+                                    FavoriteFilmsFragment.recyclerViewLike.adapter?.notifyItemChanged(
+                                        adapterPosition
+                                    )
+                                }.show()
+                        } else {
+                            filmItem.isCheck = true
+                            likedFilms.add(filmItem)
+                        }
                         CheckFavoriteListisEmpty()
                     }
                 })
             }
-    }
-
-    interface FavoriteFilmsClickedListener {
-        fun onFavoriteClick(filmItem: FilmItem, adapterPosition: Int)
     }
 
     override fun onResume() {
