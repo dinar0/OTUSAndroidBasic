@@ -25,6 +25,7 @@ class MainActivity : AppCompatActivity(),
         setContentView(R.layout.activity_main)
         initBottomNavigation()
         initClickListeners()
+
         if (supportFragmentManager.backStackEntryCount == 0) {
             supportFragmentManager.beginTransaction()
                 .replace(R.id.fragmentContainer, FilmsListFragment())

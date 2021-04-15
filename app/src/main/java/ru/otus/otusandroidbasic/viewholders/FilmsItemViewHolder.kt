@@ -11,6 +11,7 @@ class FilmsItemViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
     val imageView: ImageView = itemView.findViewById(R.id.imageView)
     val imageViewLike: ImageView = itemView.findViewById(R.id.imageViewLike)
     val titleFilm: TextView = itemView.findViewById(R.id.textView)
+
     fun bind(item: FilmItem) {
         imageView.setImageResource(item.resImg)
         titleFilm.setText(item.resTit)

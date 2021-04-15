@@ -26,6 +26,7 @@ class FilmDetailsFragment : Fragment() {
     private lateinit var imageView: ImageView
     private lateinit var toolbar: Toolbar
     private lateinit var textView: TextView
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,

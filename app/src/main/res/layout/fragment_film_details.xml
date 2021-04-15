@@ -57,25 +57,23 @@
             <ImageView
                 android:id="@+id/imageView"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="600dp"
                 android:scaleType="centerCrop"
                 tools:src="@drawable/g"
                 app:layout_collapseMode="parallax"/>
 
-
-
             <androidx.appcompat.widget.Toolbar
                 android:id="@+id/toolbar"
                 tools:title="@string/gentl"
+                app:titleTextColor="@color/black"
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
                 app:layout_collapseMode="pin"
-                app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
+                app:popupTheme="@style/ThemeOverlay.AppCompat.Dark" />
 
         </com.google.android.material.appbar.CollapsingToolbarLayout>
 
     </com.google.android.material.appbar.AppBarLayout>
-
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
 

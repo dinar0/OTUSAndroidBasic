@@ -20,9 +20,6 @@ class FavoriteFilmsFragment : Fragment() {
     companion object {
         const val FAVORITE_FILMS = "FAVORITE_FILMS"
         lateinit var recyclerViewLike: RecyclerView
-        // private val recyclerViewLike by lazy { view.findViewById<RecyclerView>(R.id.recyclerViewLike) }
-
-        // private var likedFilmsItem = arrayListOf<FilmItem>()
     }
 
     lateinit var favoritesEmpty: TextView
@@ -37,11 +34,13 @@ class FavoriteFilmsFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         recyclerViewLike = view.findViewById(R.id.recyclerViewLike)
         favoritesEmpty = view.findViewById(R.id.favoritesEmpty)
+
         if (this.resources.configuration.orientation == Configuration.ORIENTATION_LANDSCAPE) {
             recyclerViewLike.layoutManager = LinearLayoutManager(view.context)
         } else {
             recyclerViewLike.layoutManager = LinearLayoutManager(view.context)
         }
+
         recyclerViewLike.adapter =
             likedFilms?.let {
                 FavoriteFilmAdapter(it, object : FavoriteFilmAdapter.FavoriteFilmsClickListener {

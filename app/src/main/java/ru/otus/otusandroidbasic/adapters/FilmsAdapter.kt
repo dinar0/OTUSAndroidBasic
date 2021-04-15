@@ -17,6 +17,7 @@ class FilmsAdapter(
     }
 
     override fun getItemCount() = items.size
+
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         if (holder is FilmsItemViewHolder) {
             val item = items[position]

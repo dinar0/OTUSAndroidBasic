@@ -34,6 +34,7 @@ class FilmsListFragment : Fragment() {
         } else {
             recyclerView.layoutManager = GridLayoutManager(view.context, 2)
         }
+
         recyclerView.adapter = FilmsAdapter(filmsList, object : FilmsAdapter.FilmsClickListener {
             override fun onDetalsClick(filmItem: FilmItem) {
                 (activity as? FilmsClickedListener)?.onDetalsClicked(filmItem)
