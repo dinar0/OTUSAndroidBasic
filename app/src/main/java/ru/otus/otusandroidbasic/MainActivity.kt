@@ -17,9 +17,7 @@ import ru.otus.otusandroidbasic.model.FilmItem
 
 class MainActivity : AppCompatActivity()
     {
-    private val fragmentContainer by lazy { findViewById<FrameLayout>(R.id.fragmentContainer) }
-
-    override fun onCreate(savedInstanceState: Bundle?) {
+        override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         initBottomNavigation()

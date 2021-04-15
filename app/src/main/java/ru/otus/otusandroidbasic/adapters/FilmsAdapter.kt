@@ -28,6 +28,7 @@ class FilmsAdapter(
                 }
             )
             holder.bind(item)
+
             holder.imageView.setOnClickListener {
                 clickListener.onDetalsClick(item)
             }

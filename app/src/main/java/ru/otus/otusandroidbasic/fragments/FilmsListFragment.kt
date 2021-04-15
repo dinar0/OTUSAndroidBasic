@@ -16,12 +16,14 @@ import ru.otus.otusandroidbasic.dataFilmsList.DataSource
 import ru.otus.otusandroidbasic.model.FilmItem
 
 class FilmsListFragment : Fragment() {
+
     companion object {
         lateinit var recyclerView: RecyclerView
         const val TAG = "FilmsListFragment"
     }
 
     private var filmsList = DataSource.filmsList
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?

@@ -12,6 +12,7 @@ import ru.otus.otusandroidbasic.R
 import ru.otus.otusandroidbasic.model.FilmItem
 
 class FilmDetailsFragment : Fragment() {
+
     companion object {
         const val TAG = "filmDetailsFragment"
         const val EXTRA_TITLE = "EXTRA_TITLE"

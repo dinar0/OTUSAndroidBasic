@@ -12,7 +12,6 @@ class FavoriteFilmAdapter(
     private val clickListener: FavoriteFilmsClickListener
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
-        // xml -> View = inflate
         val layoutInflater = LayoutInflater.from(parent.context)
         return FavoriteFilmItemViewHolder(
             layoutInflater.inflate(
